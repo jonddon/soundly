@@ -4,6 +4,8 @@ pragma solidity ^0.8.4;
 import "@openzeppelin-contracts/contracts/access/AccessControl.sol";
 
 contract Soundly is AccessControl {
+    event ArtistAdded(address artist, string artistName);
+    event MusicAdded(bytes32 id, address artist, uint category);
 
     // Standard roles definition
     // bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
@@ -11,17 +13,25 @@ contract Soundly is AccessControl {
     bytes32 public constant ADMIN_ROLE = keccak256("AdminRole");
     bytes32 public constant ARTIST_ROLE = keccak256("ArtistRole");
 
-    mapping(bytes32 => address) artistMusics; // mapping of filecoin/IPFS music ID to the artist address
+    // mapping(bytes32 => address) artistMusics; // mapping of filecoin/IPFS music ID to the artist address
+    mapping(address => Music) artistMusics; // mapping of filecoin/IPFS music ID to the artist address
+    mapping(address => Artist) artists;
     bytes32[] public allMusics;
     address[] public allArtists;
 
     // Struct of artist existing and list of artistMusics ID
     struct Artist {
         bool isArtist;
+        bool verified;
         bytes32[] musicsID;
+        string name;
     }
 
-    mapping(address => Artist) artists;
+    struct Music {
+        uint category; // 0 - single track, 1 - album, 2 - EP
+        bytes32[] ids;
+        address artist;
+    }
 
     // these two address parameters would be have admin priviledges
     constructor(address _admin1, address _admin2) public {
@@ -32,14 +42,22 @@ contract Soundly is AccessControl {
     }
 
     // add a music to the contract
-    function addMusic(bytes32 _musicID, address _artist)
+    function addMusic(bytes32[] memory _musicIDs, address _artist, uint _category)
         external
         artistExist(_artist)
         hasAdminOrArtistRole(_msgSender())
     {
-        artistMusics[_musicID] = _artist;
-        artists[_artist].musicsID.push(_musicID);
-        allMusics.push(_musicID);
+        require(_musicIDs.length > 0, "music list empty");
+        Music storage music = artistMusics[_artist];
+        music.artist = _artist;
+        music.category = _category;
+        music.ids = _musicIDs;
+        artistMusics[_artist] = music;
+
+        for(uint256 i; i < _musicIDs.length; i++) {
+            artists[_artist].musicsID.push(_musicIDs[i]);
+            allMusics.push(_musicIDs[i]);
+        }
     }
 
     // add an artist to the contract
