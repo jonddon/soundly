@@ -3,23 +3,25 @@ schema:
   file: ./src/schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: YourContract
+    name: Soundly
     network: localhost
     source:
-      address: "{{localhost_YourContractAddress}}"
-      abi: YourContract
+      address: "{{localhost_SoundlyAddress}}"
+      abi: Soundly
       startBlock: 1
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Purpose
-        - Sender
+        - Artist
+        - Music
       abis:
-        - name: YourContract
-          file: ./abis/localhost_YourContract.json
+        - name: Soundly
+          file: ./abis/localhost_Soundly.json
       eventHandlers:
-        - event: SetPurpose(address,string)
-          handler: handleSetPurpose
+        - event: ArtistAdded(address,string)
+          handler: handleArtistAdded
+        - event: MusicAdded(bytes32,address,uint256)
+          handler: handleMusicAdded
       file: ./src/mapping.ts
