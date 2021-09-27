@@ -1,74 +1,69 @@
-pragma solidity ^0.8.4;
 //SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
 
-import "@openzeppelin-contracts/contracts/access/AccessControl.sol";
+// import "@openzeppelin/contracts/access/AccessControl.sol";
 
-contract Soundly is AccessControl {
+contract Soundly {
+    event ArtistAdded(address artist, string artistName, uint8 verified);
+    event MusicAdded(bytes32 id, address artist, uint category);
 
-    // Standard roles definition
-    // bytes32 public constant DEFAULT_ADMIN_ROLE = 0x00;
-    bytes32 public constant DEFAULT_ADMIN_ROLE = keccak256("DefaultAdminRole");
-    bytes32 public constant ADMIN_ROLE = keccak256("AdminRole");
-    bytes32 public constant ARTIST_ROLE = keccak256("ArtistRole");
 
-    mapping(bytes32 => address) artistMusics; // mapping of filecoin/IPFS music ID to the artist address
+    // mapping(bytes32 => address) artistMusics; // mapping of filecoin/IPFS music ID to the artist address
+    mapping(address => Music) artistMusics; // mapping of filecoin/IPFS music ID to the artist address
+    mapping(address => Artist) artists;
     bytes32[] public allMusics;
     address[] public allArtists;
 
     // Struct of artist existing and list of artistMusics ID
     struct Artist {
-        bool isArtist;
-        bytes32[] musicsID;
+        uint8 isArtist;
+        uint8 verified;
+        string name;
     }
 
-    mapping(address => Artist) artists;
-
-    // these two address parameters would be have admin priviledges
-    constructor(address _admin1, address _admin2) public {
-        _setRoleAdmin(ADMIN_ROLE, _msgSender());
-        _setRoleAdmin(ARTIST_ROLE, _msgSender());
-        _grantRole(ADMIN_ROLE, _admin1);
-        _grantRole(ADMIN_ROLE, _admin2);
+    struct Music {
+        uint category; // 0 - single track, 1 - album, 2 - EP
+        bytes32[] ids;
+        address artist;
     }
 
     // add a music to the contract
-    function addMusic(bytes32 _musicID, address _artist)
+    function addMusic(bytes32[] memory _musicIDs, address _artist, uint _category)
         external
         artistExist(_artist)
-        hasAdminOrArtistRole(_msgSender())
     {
-        artistMusics[_musicID] = _artist;
-        artists[_artist].musicsID.push(_musicID);
-        allMusics.push(_musicID);
+        require(_musicIDs.length > 0, "music list empty");
+        Music storage music = artistMusics[_artist];
+        music.artist = _artist;
+        music.category = _category;
+        music.ids = _musicIDs;
+        artistMusics[_artist] = music;
+
+        for(uint256 i; i < _musicIDs.length; i++) {
+            allMusics.push(_musicIDs[i]);
+            emit MusicAdded(_musicIDs[i], _artist, _category);
+        }
     }
 
     // add an artist to the contract
-    function addArtist(address _artist)
+    function addArtist(address _artist, string memory _name, uint8 _verified)
         external
-        onlyRole(ADMIN_ROLE)
         returns (bool success)
     {
-        require(!artists[_artist].isArtist, "Artist already exists");
-        _grantRole(ARTIST_ROLE, _artist);
-        artists[_artist].isArtist = true;
+        require(artists[_artist].isArtist == 0, "Artist already exists");
+        Artist storage artist = artists[_artist];
+        artist.name = _name;
+        artist.verified = _verified;
+        artist.isArtist = 1;
         allArtists.push(_artist);
         success = true;
+        emit ArtistAdded(_artist, _name, _verified);
     }
 
-    // INTERNAL HELPERS
-    function _msgSender() internal returns(address) {
-        return msg.sender;
-    }
 
     // MODIFIERS
     modifier artistExist(address _artist) {
-        require(artists[_artist].isArtist, "Address param is not an artist yet");
-        _;
-    }
-
-    // check that account has is an artist or an admin
-    modifier hasAdminOrArtistRole(address _account) {
-        require(hasRole(ADMIN_ROLE, _account) || hasRole(ARTIST_ROLE), "Neither an artist or admin");
+        require(artists[_artist].isArtist == 0, "Address param is not an artist yet");
         _;
     }
 }

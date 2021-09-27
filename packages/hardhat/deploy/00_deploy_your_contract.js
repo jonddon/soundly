@@ -5,12 +5,15 @@
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  await deploy("YourContract", {
+  await deploy("Soundly", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     //args: [ "Hello", ethers.utils.parseEther("1.5") ],
     log: true,
   });
+
+  // const soundly = await ethers.getContract("Soundly", deployer);
+  // await soundly.addArtist("0xaAC799eC2d00C013f1F11c37E654e59B0429DF6A", "J-Money1", 0);
 
   /*
     // Getting a previously deployed contract
@@ -48,4 +51,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   });
   */
 };
-module.exports.tags = ["YourContract"];
+module.exports.tags = ["Soundly"];
