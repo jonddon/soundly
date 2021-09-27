@@ -20,7 +20,7 @@ dataSources:
         - name: Soundly
           file: ./abis/localhost_Soundly.json
       eventHandlers:
-        - event: ArtistAdded(address,string)
+        - event: ArtistAdded(address,string,uint8)
           handler: handleArtistAdded
         - event: MusicAdded(bytes32,address,uint256)
           handler: handleMusicAdded
