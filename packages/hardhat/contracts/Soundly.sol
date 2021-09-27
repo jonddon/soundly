@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 // import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract Soundly {
-    event ArtistAdded(address artist, string artistName);
+    event ArtistAdded(address artist, string artistName, uint8 verified);
     event MusicAdded(bytes32 id, address artist, uint category);
 
 
@@ -46,23 +46,24 @@ contract Soundly {
     }
 
     // add an artist to the contract
-    function addArtist(address _artist, string memory _name)
+    function addArtist(address _artist, string memory _name, uint8 _verified)
         external
         returns (bool success)
     {
-        require(artists[_artist].isArtist != 0, "Artist already exists");
+        require(artists[_artist].isArtist == 0, "Artist already exists");
         Artist storage artist = artists[_artist];
         artist.name = _name;
+        artist.verified = _verified;
         artist.isArtist = 1;
         allArtists.push(_artist);
         success = true;
-        emit ArtistAdded(_artist, _name);
+        emit ArtistAdded(_artist, _name, _verified);
     }
 
 
     // MODIFIERS
     modifier artistExist(address _artist) {
-        require(artists[_artist].isArtist != 0, "Address param is not an artist yet");
+        require(artists[_artist].isArtist == 0, "Address param is not an artist yet");
         _;
     }
 }
