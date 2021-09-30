@@ -1,34 +1,62 @@
-import { BigInt, Address } from "@graphprotocol/graph-ts"
+import { BigInt, log, Address } from "@graphprotocol/graph-ts"
 import {
-  YourContract,
-  SetPurpose
-} from "../generated/YourContract/YourContract"
-import { Purpose, Sender } from "../generated/schema"
+  Soundly,
+  ArtistAdded,
+  MusicAdded,
+} from "../generated/Soundly/Soundly"
+import { Artist, Music } from "../generated/schema"
 
-export function handleSetPurpose(event: SetPurpose): void {
+// export let CATEGORY_SINGLE = BigInt.fromI32(1);
+// export let CATEGORY_EP = BigInt.fromI32(2);
+// export let CATEGORY_ALBUM = BigInt.fromI32(3);
+// export const ZERO_ADDRESS = Address.fromHexString("0x0000000000000000000000000000000000000000");
+export function handleArtistAdded(event: ArtistAdded): void {
+  let artistString = event.params.artist.toHexString()
 
-  let senderString = event.params.sender.toHexString()
+  let artist = Artist.load(artistString)
 
-  let sender = Sender.load(senderString)
-
-  if (sender == null) {
-    sender = new Sender(senderString)
-    sender.address = event.params.sender
-    sender.createdAt = event.block.timestamp
-    sender.purposeCount = BigInt.fromI32(1)
+  if (artist == null) {
+    artist = new Artist(artistString)
+    artist.address = event.params.artist
+    artist.name = event.params.artistName
+    artist.verified = BigInt.fromI32(event.params.verified)
+    artist.createdAt = event.block.timestamp
   }
   else {
-    sender.purposeCount = sender.purposeCount.plus(BigInt.fromI32(1))
+    log.error('Artist {} already added', [artistString])
   }
+  artist.save()
 
-  let purpose = new Purpose(event.transaction.hash.toHex() + "-" + event.logIndex.toString())
+  // let soundlyContract = Soundly.bind(event.address);
+  // const addr = Address.fromHexString("0xB08e92D4a03784735a93251A64e145B350228C22");
+  // const name = "party"
+  // let addArtistResp = soundlyContract.try_addArtist(addr, name)
+  // if (!addArtistResp.reverted) {
+  //   artist = new Artist(artistString)
+  //   artist.address = event.params.artist
+  //   artist.name = event.params.artistName
+  //   artist.createdAt = event.block.timestamp
 
-  purpose.purpose = event.params.purpose
-  purpose.sender = senderString
-  purpose.createdAt = event.block.timestamp
-  purpose.transactionHash = event.transaction.hash.toHex()
+  //   artist.save()
+  // }
+}
 
-  purpose.save()
-  sender.save()
+export function handleMusicAdded(event: MusicAdded): void {
+
+  let artistString = event.params.artist.toHexString()
+
+  let artist = Artist.load(artistString)
+
+  if (artist !== null) {
+    let music = new Music(artistString);
+    music.artist = artistString
+    music.musicId = event.params.id
+    music.category = event.params.category
+    music.createdAt = event.block.timestamp
+  }
+  else {
+    log.error('Artist {} not found', [artistString])
+  }
+  artist.save()
 
 }

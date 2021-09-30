@@ -1,15 +1,25 @@
-type Purpose @entity {
+# enum Category {
+#   Single
+#   EP
+#   Album
+# }
+
+type Music @entity {
   id: ID!
-  sender: Sender!
-  purpose: String!
+  artist: Artist!
+  musicId: Bytes!
+  category: BigInt!
   createdAt: BigInt!
   transactionHash: String!
 }
 
-type Sender @entity {
+type Artist @entity {
   id: ID!
   address: Bytes!
-  purposes: [Purpose!] @derivedFrom(field: "sender")
+  name: String!
+  verified: BigInt!
+  musics: [Music!] @derivedFrom(field: "artist")
   createdAt: BigInt!
-  purposeCount: BigInt!
 }
+
+
