@@ -22,12 +22,12 @@ function Navigation() {
       {userError && <p>{userError.message}</p>}
       <nav style={useStyle.component}>
         <Brand />
-        <div className={"navigation"}>
-          {/* <NavigationButton href={"/home"} name={"Home"}/>*/}
-          {/* <NavigationButton href={"/home/about"} name={"About"}/>*/}
-          {/*<NavigationButton href={"/home/add"} name={"Add"}/>*/}
+        {/* <div className={"navigation"}>
+          <NavigationButton href={"/home"} name={"Home"}/>
+          <NavigationButton href={"/home/about"} name={"About"}/>
+          <NavigationButton href={"/home/add"} name={"Add"}/>
         </div>
-        {/* <SearchBar/> */}
+         <SearchBar/> */}
 
         <div className="profile">
           {!isAuthenticated ? (
@@ -38,10 +38,9 @@ function Navigation() {
             </div>
           ) : (
             <div>
-              <div>
-                <h1>Welcome </h1>
-                {user.get("ethAddress")}
-              </div>
+              <Button variant="outlined" color="primary">
+                {user.get("ethAddress").slice(0, 8)}
+              </Button>
 
               <Button
                 variant="outlined"
@@ -52,9 +51,9 @@ function Navigation() {
                 {isAuthenticating ? "Loading" : " Log out"}
               </Button>
 
-              <Button onClick={() => refetchUserData()} variant="contained" color="primary">
+              {/* <Button onClick={() => refetchUserData()} variant="contained" color="primary">
                 {isAuthenticating ? "Loading" : "Refetch user data"}
-              </Button>
+              </Button> */}
             </div>
           )}
           {/* {

@@ -8,7 +8,7 @@ class MobileTopNavigation extends React.Component{
         return(
             <nav className="mob-top-navigation">
                 <Brand/>
-                <SearchBar/>
+                {/* <SearchBar/> */}
             </nav>
         );
     }
