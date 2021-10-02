@@ -1,30 +1,21 @@
 .footer-player {
   border-top: 1px solid #e0e0e0;
+  border-radius: 30px 30px 0 0;
   position: relative;
-  height: 10vh;
+  height: 20vh;
   display: flex;
   flex-direction: row;
   align-items: center;
-  .playback {
-    position: absolute;
-    top: -14px;
-    z-index: 99999999;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    .playback-completed {
-      width: 100%;
-    }
-    .MuiSlider-thumb {
-      box-shadow: none !important;
-    }
-  }
+  background-color: rgb(201, 201, 201);
+  color: #000;
+  padding-left: 70px ;
+  padding-right: 70px;
 }
 
 .curr-music-container {
   justify-content: flex-start !important;
   flex-grow: 1;
-  height: 100%;
+  // height: 100%;
   .curr-music-cover {
     padding-left: 10px;
   }
@@ -36,7 +27,7 @@
     }
 
     p:nth-child(2) {
-      color: #fff;
+      // color: #fff;
       font-weight: lighter;
     }
   }
@@ -44,14 +35,29 @@
 
 .playback-controls {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   height: 100%;
   align-items: center;
   flex-basis: 40%;
 
   div {
+    display: flex;
+    justify-content: center;
     padding-right: 10px;
+    width: 100%;
+    .playback {
+    z-index: 99999999;
+    left: 0;
+    width: 80%;
+    overflow: hidden;
+    .playback-completed {
+      width: 100%;
+    }
+    .MuiSlider-thumb {
+      box-shadow: none !important;
+    }
+  }
   }
 }
 

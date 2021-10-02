@@ -48,7 +48,8 @@ export const themes = {
             }
         },
         volume:{
-            color:"#07689f"
+            color: "#000",
+            backgroundColor: "#0f0f0f"
         }
     }
 };

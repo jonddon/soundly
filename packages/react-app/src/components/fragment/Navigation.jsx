@@ -13,7 +13,7 @@ import { ThemeContext } from "../../api/Theme";
 function Navigation() {
   // const [isLanguageListOpen, setLangList] = useState(false);
   // const [isOpenProfile, setOpenProfile] = useState(false);
-  const { refetchUserData, isAuthenticating, logout, isUserUpdating, userError, authenticate, isAuthenticated, user } =
+  const { isAuthenticating, logout, userError, authenticate, isAuthenticated, user, isLoggingOut } =
     useMoralis();
 
   const useStyle = useContext(ThemeContext);
@@ -33,7 +33,7 @@ function Navigation() {
           {!isAuthenticated ? (
             <div>
               <Button variant="contained" loading={isAuthenticating} onClick={() => authenticate()}>
-                {isAuthenticating ? "Loading" : "Authenticate"}
+                {isAuthenticating ? "Loading" : "Login"}
               </Button>
             </div>
           ) : (
@@ -48,7 +48,7 @@ function Navigation() {
                 loading={isAuthenticating ? true : undefined}
                 onClick={() => logout()}
               >
-                {isAuthenticating ? "Loading" : " Log out"}
+                {isLoggingOut ? "Logging out..." : "Log out"}
               </Button>
 
               {/* <Button onClick={() => refetchUserData()} variant="contained" color="primary">
@@ -56,20 +56,6 @@ function Navigation() {
               </Button> */}
             </div>
           )}
-          {/* {
-                    (isAuthenticating)
-                    ? <div>
-                            <button>Loading...</button>
-                        </div>
-                    : null
-                } */}
-
-          {/* <Button className={"Dropdown-btn"}
-                    
-                        startIcon={<Avatar style={{width:'30px',height:'30px',padding:'18px'}} ></Avatar>}
-                        endIcon={isOpenProfile ? <ExpandMoreIcon/> : <ExpandLessIcon/>}>
-
-                </Button> */}
         </div>
       </nav>
     </>
