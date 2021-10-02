@@ -5,10 +5,10 @@
 .home-music-container{
   display: flex;
   .sidebar-home{
-    flex: 0.2;
+    width: 8%;
   }
   .main-home{
-    flex: 0.8;
+    width: 92%;
   }
 }
 .current-large-banner{

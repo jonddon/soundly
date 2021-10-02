@@ -4,7 +4,7 @@ import "../assets/scss/Navigation.scss";
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 // import DropDownLanguageList from "./DropDownLanguageList";
-// import SearchBar from "./SearchBar";
+import SearchBar from "./SearchBar";
 import Brand from "./Brand";
 // import DropDownProfile from "./DropDownProfile";
 import { Avatar, Button } from "@material-ui/core";
@@ -13,8 +13,7 @@ import { ThemeContext } from "../../api/Theme";
 function Navigation() {
   // const [isLanguageListOpen, setLangList] = useState(false);
   // const [isOpenProfile, setOpenProfile] = useState(false);
-  const { isAuthenticating, logout, userError, authenticate, isAuthenticated, user, isLoggingOut } =
-    useMoralis();
+  const { isAuthenticating, logout, userError, authenticate, isAuthenticated, user, isLoggingOut } = useMoralis();
 
   const useStyle = useContext(ThemeContext);
   return (
@@ -28,7 +27,7 @@ function Navigation() {
           <NavigationButton href={"/home/add"} name={"Add"}/>
         </div>
          <SearchBar/> */}
-
+        <SearchBar />
         <div className="profile">
           {!isAuthenticated ? (
             <div>

@@ -12,10 +12,13 @@ function SideBar() {
   return (
     <aside style={useStyle.component} className={"aside-bar"}>
       <div className="aside-bar-container">
-        <p className={"p1"}>
-          <span>LIBRARY</span>
-        </p>
+        <div className="profile-wrapper">
+          <img src={"../profile.png"} alt="profile"  className="profile-picture"/>
+        </div>
         <SideBarOptions className={"lib-sub"} Icon={HomeOutlined} href={"/home"} title={"Home"} />
+        <SideBarOptions className={"lib-sub"} Icon={SearchOutlined} href={"/home"} title={"Search"} />
+        <SideBarOptions className={"lib-sub"} Icon={PlaylistPlay} href={"/home/playlist"} title={"Playlist"} />
+
         {isAuthenticated && (
           <SideBarOptions className={"lib-sub"} Icon={ExploreOutlined} href={"/dashboard"} title={"Dashboard"} />
         )}
@@ -24,7 +27,7 @@ function SideBar() {
         {/*<SideBarOptions className={"lib-sub"} Icon={AlbumIcon} href={"/home/album"}  title={"Album"}/>
                 <SideBarOptions className={"lib-sub"} Icon={EmojiPeopleIcon} href={"/home/artist"}  title={"Artist"}/>*/}
       </div>
-      <div className="aside-bar-container playlist">
+      {/* <div className="aside-bar-container playlist">
         <p className={"p1"}>
           <span>MY PLAYLIST</span>
         </p>
@@ -40,7 +43,7 @@ function SideBar() {
           href={"/home/playlist/electronic"}
           title={"Electronic"}
         />
-      </div>
+      </div> */}
     </aside>
   );
 }

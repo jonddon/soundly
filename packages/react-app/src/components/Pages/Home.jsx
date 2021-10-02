@@ -79,12 +79,15 @@ function Home() {
         </div>
       ) : (
         <>
-          {screenSize <= 970 ? <MobileTopNavigation /> : <Navigation />}
+         
           <section className={"home-music-container"}>
             <div className="sidebar-home">
               <SideBar />
             </div>
-            <div className="main-home">{Page}</div>
+              <div className="main-home">
+                 {screenSize <= 970 ? <MobileTopNavigation /> : <Navigation />}
+                {Page}
+              </div>
           </section>
           {bannerOpen && (
             <section className="current-large-banner">

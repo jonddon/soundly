@@ -6,7 +6,7 @@
   height: 80vh;
   overflow: auto;
   border-right: 1px solid #000;
-  background-color: darkblue;
+  // background-color: darkblue;
   .p1 {
     border-bottom: 1px solid #e0e0e0;
     padding: 15px;
@@ -16,13 +16,8 @@
   .lib-sub {
     padding: 10px;
     margin: 5px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color: #fff;
-
-    .MuiButton-startIcon {
-      // color: #07689f;
+    a{
+      color: #fff;
     }
   }
   .aside-bar-container {
@@ -30,12 +25,19 @@
     flex-flow: column;
     width: 100%;
   }
+  .profile-picture{
+    width: 60%;
+  }
+  .profile-wrapper{
+    display: flex;
+    justify-content: center;
+  }
   .playlist {
     color: #fff;
     flex: 1;
-    .p1 {
-      border-top: 1px solid #fff;
-    }
+    // .p1 {
+    //   border-top: 1px solid #fff;
+    // }
     .lib-sub:hover {
       background-color: #a2d5f2;
     }
