@@ -13,9 +13,7 @@ function SideBar() {
     <aside style={useStyle.component} className={"aside-bar"}>
       <div className="aside-bar-container">
         <p className={"p1"}>
-          <span>
-            LIBRARY
-          </span>
+          <span>LIBRARY</span>
         </p>
         <SideBarOptions className={"lib-sub"} Icon={HomeOutlined} href={"/home"} title={"Home"} />
         {isAuthenticated && (

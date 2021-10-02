@@ -39,7 +39,6 @@ function getCurrPage(pathName) {
 }
 
 function Home() {
-
   const [screenSize, setScreenSize] = useState(undefined);
   const [currMusic, setCurrMusic] = useState(null);
   const [Page, setCurrPage] = useState(<MusicCardContainer />);

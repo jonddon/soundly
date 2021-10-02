@@ -132,69 +132,69 @@ function FooterMusicPlayer({ music }) {
   }
   return (
     <div className={"footer-player"}>
-      <Button
-        startIcon={<Avatar variant="square" src={require("../assets/img/" + img).default} alt={name} />}
-        onClick={handleBannerToggle}
-        className="curr-music-container"
-      >
+      <Button onClick={handleBannerToggle} className="curr-music-container">
+        <img src={require("../assets/img/" + img).default} alt={name} className="music-art" />
         <div className="curr-music-details">
           <Name name={name} className={"song-name"} length={name.length} />
           <Name name={author_name} className={"author-name"} length={author_name.length} />
         </div>
       </Button>
-          <div className="playback-controls">
-              <div>
-        <ControlsToggleButton
-          style={pointer}
-          type={"repeat"}
-          defaultIcon={<RepeatIcon fontSize={"large"} />}
-          changeIcon={<RepeatOneIcon fontSize={"large"} />}
-          onClicked={handleToggle}
-        />
+      <div className="playback-controls">
+        <div>
+          <ControlsToggleButton
+            style={pointer}
+            type={"repeat"}
+            defaultIcon={<RepeatIcon fontSize={"large"} />}
+            changeIcon={<RepeatOneIcon fontSize={"large"} />}
+            onClicked={handleToggle}
+          />
 
-        <ControlsToggleButton
-          style={pointer}
-          type={"prev"}
-          defaultIcon={<SkipPreviousIcon fontSize={"large"} />}
-          changeIcon={<SkipPreviousIcon fontSize={"large"} />}
-          onClicked={handleToggle}
-        />
+          <ControlsToggleButton
+            style={pointer}
+            type={"prev"}
+            defaultIcon={<SkipPreviousIcon fontSize={"large"} />}
+            changeIcon={<SkipPreviousIcon fontSize={"large"} />}
+            onClicked={handleToggle}
+          />
 
-        <audio ref={audioElement} src={require("../assets/music/" + musicName).default} preload={"metadata"} />
+          <audio ref={audioElement} src={require("../assets/music/" + musicName).default} preload={"metadata"} />
 
-        <ControlsToggleButton
-          style={pointer}
-          type={"play-pause"}
-          defaultIcon={<PlayArrowIcon fontSize={"large"} />}
-          changeIcon={<PauseIcon fontSize={"large"} />}
-          onClicked={handleToggle}
-        />
+          <ControlsToggleButton
+            style={pointer}
+            type={"play-pause"}
+            defaultIcon={<PlayArrowIcon fontSize={"large"} />}
+            changeIcon={<PauseIcon fontSize={"large"} />}
+            onClicked={handleToggle}
+          />
 
-        <ControlsToggleButton
-          style={pointer}
-          type={"next"}
-          defaultIcon={<SkipNextIcon fontSize={"large"} />}
-          changeIcon={<SkipNextIcon fontSize={"large"} />}
-          onClicked={handleToggle}
-              />
-              </div>
-              <div>
-                  
-            <div className="playback">
-                      {!isNaN(seekTime) && (<> <span style={{ fontSize: "10px" }}>{formatTime(currTime)}</span>
-            <Slider
-                style={{ color: useStyle.theme }}
-                className={"playback-completed"}
-                value={seekTime}
-                onChange={handleSeekChange}
-            />
-                          <span style={{fontSize:"10px"}}>{formatTime(duration)}</span></>
-            )}
+          <ControlsToggleButton
+            style={pointer}
+            type={"next"}
+            defaultIcon={<SkipNextIcon fontSize={"large"} />}
+            changeIcon={<SkipNextIcon fontSize={"large"} />}
+            onClicked={handleToggle}
+          />
         </div>
-              </div>
+        <div>
+          <div className="playback">
+            {!isNaN(seekTime) && (
+              <>
+                {" "}
+                <span style={{ fontSize: "10px" }}>{formatTime(currTime)}</span>
+                <Slider
+                  style={{ color: useStyle.theme }}
+                  className={"playback-completed"}
+                  value={seekTime}
+                  onChange={handleSeekChange}
+                />
+                <span style={{ fontSize: "10px" }}>{formatTime(duration)}</span>
+              </>
+            )}
+          </div>
+        </div>
       </div>
-          <div className="playback-widgets">
-              <ControlsToggleButton
+      <div className="playback-widgets">
+        <ControlsToggleButton
           style={pointer}
           type={"volume"}
           defaultIcon={<VolumeUpIcon />}
@@ -202,10 +202,8 @@ function FooterMusicPlayer({ music }) {
           onClicked={handleToggle}
         />
         <div className={"slider"}>
-            
           <Slider style={{ color: useStyle.theme }} value={volume} onChange={handleVolumeChange} />
         </div>
-        
       </div>
     </div>
   );
