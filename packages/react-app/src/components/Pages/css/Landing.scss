@@ -1,7 +1,10 @@
 #main {
   font-family: Consolas, sans-serif;
   background: #000;
-  background: linear-gradient(110deg, #000 50%, #000 50%);
+  background-image: url("../img/background.png");
+  opacity: 0.9;
+  background-size: cover;
+  // background: linear-gradient(110deg, #000 50%, #000 50%);
   height: 100vh;
   text-align: center;
   display: flex;
@@ -26,34 +29,42 @@
       flex-basis: 50%;
       flex-grow: 1;
       .head-phone-img {
-        width: 60%;
+        width: 100%;
       }
     }
     .main-row-text {
       display: flex;
       flex-flow: column wrap;
-      justify-content: center;
-      align-items: center;
+      // justify-content: center;
+      // align-items: center;
+      padding-left: 40px;
+      text-align: left;
       flex-basis: 50%;
       flex-grow: 1;
       color: #fff;
       h1 {
-        font-family: "Bungee", cursive;
-        font-size: 3rem;
+        font-family: Epilogue, cursive;
+        font-weight: 500;
+        font-size: 64px;
+        line-height: 1.2em;
       }
       p {
+        font-weight: 300;
+        margin-top: 12px;
         color: #f8eeee;
         font-size: 1.2rem;
       }
+      .btn-group{
+         margin: 85px 0;
+      }
       .btn {
-        font-family: Consolas, sans-serif;
         letter-spacing: 2px;
         border: none;
-        background-color: #282c34;
+        background-color: blue;
+        width: max-content;
         color: #fff;
+        margin-right: 20px;
         font-size: 1.1rem;
-        text-transform: uppercase;
-        margin: 10px 0;
         padding: 15px 20px;
         border-radius: 5px;
       }

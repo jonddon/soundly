@@ -10,10 +10,10 @@ function SideBar() {
   console.log("user from sidebar", user, isAuthenticated);
   const useStyle = useContext(ThemeContext);
   return (
-    <aside style={useStyle.component} className={"aside-bar"}>
+    <aside className={"aside-bar"}>
       <div className="aside-bar-container">
         <div className="profile-wrapper">
-          <img src={"../profile.png"} alt="profile"  className="profile-picture"/>
+          <img src={"../profile.png"} alt="profile" className="profile-picture" />
         </div>
         <SideBarOptions className={"lib-sub"} Icon={HomeOutlined} href={"/home"} title={"Home"} />
         <SideBarOptions className={"lib-sub"} Icon={SearchOutlined} href={"/home"} title={"Search"} />

@@ -4,6 +4,7 @@
 }
 .home-music-container{
   display: flex;
+  font-family: 'Epilogue', sans-serif;
   .sidebar-home{
     width: 8%;
   }
@@ -16,7 +17,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 90vh;
+  height: 80vh;
 }
 @media only screen and (max-width: 970px) {
   .home-music-container {

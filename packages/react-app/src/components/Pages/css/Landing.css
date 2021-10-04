@@ -1,7 +1,6 @@
 #main {
   font-family: Consolas, sans-serif;
-  background: #000;
-  background: linear-gradient(110deg, #000 50%, #00f 50%);
+  background: #232931;
   height: 100vh;
   text-align: center;
   display: flex;

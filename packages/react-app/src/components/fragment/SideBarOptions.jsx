@@ -15,10 +15,10 @@ function SideBarOptions(props) {
       }}
       className={className}
     >
-      <Link ref={sideBarRef} to={href} >
+      <Link ref={sideBarRef} to={href}>
         <Icon />
-            <p style={{ display: "block" }}> {title} </p>
-    </Link>
+        <p style={{ display: "block" }}> {title} </p>
+      </Link>
     </Button>
   );
 }
