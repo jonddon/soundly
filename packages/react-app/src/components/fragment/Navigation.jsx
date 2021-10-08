@@ -9,17 +9,29 @@ import Brand from "./Brand";
 // import DropDownProfile from "./DropDownProfile";
 import { Avatar, Button } from "@material-ui/core";
 import { ThemeContext } from "../../api/Theme";
+import { ArrowBack } from "@material-ui/icons";
 
 function Navigation() {
   // const [isLanguageListOpen, setLangList] = useState(false);
   // const [isOpenProfile, setOpenProfile] = useState(false);
-  const { isAuthenticating, logout, userError, authenticate, isAuthenticated, user, isLoggingOut } = useMoralis();
+  const { isAuthenticating, logout, userError, authenticate, isAuthenticated, user, isLoggingOut, setUserData } =
+    useMoralis();
 
   const useStyle = useContext(ThemeContext);
+  const login = async () => {
+    let user = await authenticate({ signingMessage: "Login in to Soundly", onComplete: () => alert("🎉") });
+    if (user) {
+      setUserData({
+        username: "Batman",
+        email: "batman@marvel.com",
+        numberOfCats: 12,
+      });
+    }
+  };
   return (
     <>
       {userError && <p>{userError.message}</p>}
-      <nav style={useStyle.component}>
+      <nav>
         <Brand />
         {/* <div className={"navigation"}>
           <NavigationButton href={"/home"} name={"Home"}/>
@@ -31,8 +43,8 @@ function Navigation() {
         <div className="profile">
           {!isAuthenticated ? (
             <div>
-              <Button variant="contained" loading={isAuthenticating} onClick={() => authenticate()}>
-                {isAuthenticating ? "Loading" : "Login"}
+              <Button variant="contained" onClick={() => login()}>
+                {isAuthenticating ? "Logging in..." : "Login"}
               </Button>
             </div>
           ) : (

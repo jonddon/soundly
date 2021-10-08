@@ -19,11 +19,12 @@ button{
 }
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 2px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
+  background: #fafafa;
   background: #fafafa;
 
 }

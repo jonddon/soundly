@@ -1,9 +1,6 @@
 .Container{
-  height: 60vh;
+  height: 70vh;
   overflow-y: auto;
-  >div{
-    height: 100%;
-  }
 }
 @media only screen and (max-width: 970px) {
   .Container {

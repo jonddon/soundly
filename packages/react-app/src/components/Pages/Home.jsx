@@ -17,6 +17,7 @@ import Search from "./Search";
 import About from "./About";
 import Playlist from "../fragment/Playlist";
 import { Skeleton } from "@material-ui/lab";
+import Dashboard from "./Dashboard";
 
 function getCurrPage(pathName) {
   switch (pathName) {
@@ -30,6 +31,8 @@ function getCurrPage(pathName) {
       return <AddMusic />;
     case "/home/about":
       return <About />;
+    case "/home/dashboard":
+      return <Dashboard />;
     default:
       if (pathName.startsWith("/home/playlist/")) {
         return <Playlist />;
@@ -79,15 +82,19 @@ function Home() {
         </div>
       ) : (
         <>
-         
           <section className={"home-music-container"}>
             <div className="sidebar-home">
               <SideBar />
             </div>
-              <div className="main-home">
-                 {screenSize <= 970 ? <MobileTopNavigation /> : <Navigation />}
-                {Page}
+            <div className="main-home">
+              <div id={"main-content"}>
+                {screenSize <= 970 ? <MobileTopNavigation /> : <Navigation />}
+                  <div className={"page-content"}>
+                    {Page}
+                  </div>
+                
               </div>
+            </div>
           </section>
           {bannerOpen && (
             <section className="current-large-banner">
@@ -96,6 +103,7 @@ function Home() {
           )}
           <React.Fragment>
             {currMusic ? <FooterMusicPlayer music={currMusic} /> : <FooterSelectMusic />}
+            {/* <FooterMusicPlayer music={currMusic} /> */}
             {screenSize <= 970 && <BottomNavigationMobile />}
           </React.Fragment>
         </>
