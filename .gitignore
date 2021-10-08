@@ -64,3 +64,6 @@ yarn-error.log*
 .netlify
 *.tsbuildinfo
 *.stackdump
+
+# nuel's junks
+.todo
