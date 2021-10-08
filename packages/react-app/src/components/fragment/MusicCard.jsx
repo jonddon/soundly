@@ -42,7 +42,7 @@ function MusicCard(props) {
       ) : (
         <>
           <div onClick={handlePlay} className={"music-card-cover"} onMouseOver={handleResponse}>
-                          <img src={require("../assets/img/" + img).default} alt={name} style={{borderRadius:"5px"}}/>
+            <img src={require("../assets/img/" + img).default} alt={name} style={{ borderRadius: "5px" }} />
             <div className="play-circle">
               <PlayCircleFilledWhiteIcon />
             </div>

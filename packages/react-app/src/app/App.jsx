@@ -8,6 +8,7 @@ import { ThemeContext, themes } from "../api/Theme";
 import musicDB from "../db/music";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaylist } from "../actions/actions";
+import SignUp from "../components/Pages/SignUp";
 
 const App = () => {
   const { language } = useSelector(state => state.musicReducer);
@@ -31,7 +32,8 @@ const App = () => {
           <Switch>
             <Route path="/" exact component={Landing} />
             <Route path="/home" component={Home} />
-            {/* <Route path="/dashboard" component={Dashboard} /> */}
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/signup" component={SignUp} />
           </Switch>
         </Router>
       </div>

@@ -1,9 +1,12 @@
 .song-name {
-  font-weight: bolder;
+  font-weight: 700;
   font-size: 1.1rem;
-  color: #000;
+  margin: 20px 0;
+  line-height: 1.2em;
+  color: rgb(255, 255, 255);
 }
 .author-name {
-  font-weight: lighter;
-  color: #000;
+  font-weight: 300;
+  font-size: 12px;
+  color: rgb(255, 255, 255);
 }

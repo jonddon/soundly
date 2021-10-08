@@ -2,7 +2,7 @@ import { Container, Grid, Button, Box, Modal, TextField } from "@material-ui/cor
 
 import React, { useState } from "react";
 import "./css/Dashboard.scss";
-// import { Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 const data = {
   labels: ['1', '2', '3', '4', '5', '6'],
@@ -11,8 +11,9 @@ const data = {
       label: '# of Votes',
       data: [12, 19, 3, 5, 2, 3],
       fill: false,
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgba(255, 99, 132, 0.2)',
+      backgroundColor: 'rgb(255, 255, 255)',
+          borderColor: 'rgba(255, 99, 132, 0.2)',
+      maintainAspectRatio: false
     },
   ],
 };
@@ -59,14 +60,14 @@ const Dashboard = () => {
         <Grid item xs={9}>
           <h2>Overview</h2>
           <div className="data-box-large">
-                      <div className="overview">
-                          <h4>
-                              Your earnings this month
-                          </h4>
-                          <h2>
-                              $6,500 <span>Dai</span>
-                          </h2>
-                          <p>Update your payment method</p>
+            <div className="overview">
+                <h4>
+                    Your earnings this month
+                </h4>
+                <h2>
+                    $6,500 <span>Dai</span>
+                </h2>
+                <p>Update your payment method</p>
 
             </div>
             <div className="image-wrapper">
@@ -103,8 +104,8 @@ const Dashboard = () => {
             </Modal>
                   </div>
                   <div className="chart">
-                      {/* <Line data={data} width={100}
-	height={50} options={options} /> */}
+                      <Line data={data}
+	options={options} />
                   </div>
         </Grid>
       </Grid>
