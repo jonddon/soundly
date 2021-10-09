@@ -20,13 +20,7 @@ function Navigation() {
   const useStyle = useContext(ThemeContext);
   const login = async () => {
     let user = await authenticate({ signingMessage: "Login in to Soundly", onComplete: () => alert("🎉") });
-    if (user) {
-      setUserData({
-        username: "Batman",
-        email: "batman@marvel.com",
-        numberOfCats: 12,
-      });
-    }
+   
   };
   return (
     <>
@@ -50,7 +44,7 @@ function Navigation() {
           ) : (
             <div>
               <Button variant="outlined" color="primary">
-                {user.get("ethAddress").slice(0, 8)}
+                  {user.get("ethAddress").slice(0, 8)}
               </Button>
 
               <Button

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
 import { useMoralis } from "react-moralis";
 import "./css/SignUp.scss";
@@ -14,19 +15,26 @@ const SignUp = () => {
   const useStyle = useContext(ThemeContext);
 
   const login = async() => {
-    let user = await authenticate({ signingMessage: "Login in to Soundly" });
-    if (user) {
-      setUserData({
-        username: name,
+    await authenticate({ signingMessage: "Login in to Soundly" });
+    setUserData({
+        name: name,
         twitter: twitter,
         isVerified: false,
-      });
+    })
 
-      user.save();
-    }
-    console.log(user);
-    // console.log(twitter);
+    console.log(user.get("name"));
   }
+  
+    // if (user) {
+    //   user.set("username", name);
+    //   user.set("twitter", twitter);
+    //   user.set("isVerified", false);
+
+    //   user.save();
+    //    console.log(user);
+    // }
+   
+    // console.log(twitter);
   return (
     <div className={"signup-wrapper"}>
       <Navigation />
