@@ -7,7 +7,7 @@ import { ExploreOutlined, HomeOutlined, PlaylistPlay, SearchOutlined } from "@ma
 
 function SideBar() {
   const { user, isAuthenticated } = useMoralis();
-  console.log("user from sidebar", user, isAuthenticated);
+  // console.log("user from sidebar", user, isAuthenticated);
   const useStyle = useContext(ThemeContext);
   return (
     <aside className={"aside-bar"}>
@@ -19,9 +19,9 @@ function SideBar() {
         <SideBarOptions className={"lib-sub"} Icon={SearchOutlined} href={"/home"} title={"Search"} />
         <SideBarOptions className={"lib-sub"} Icon={PlaylistPlay} href={"/home/playlist"} title={"Playlist"} />
 
-        {isAuthenticated && (
-          <SideBarOptions className={"lib-sub"} Icon={ExploreOutlined} href={"/dashboard"} title={"Dashboard"} />
-        )}
+        {/* {user.get("isVerified") && ( */}
+          <SideBarOptions className={"lib-sub"} Icon={ExploreOutlined} href={"/home/dashboard"} title={"Dashboard"} />
+        {/* )} */}
 
         {/* <SideBarOptions className={"lib-sub"} Icon={SearchOutlined} href={"/home/search"}  title={"Search"}/> */}
         {/*<SideBarOptions className={"lib-sub"} Icon={AlbumIcon} href={"/home/album"}  title={"Album"}/>

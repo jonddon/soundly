@@ -9,16 +9,19 @@ import PauseIcon from "@material-ui/icons/Pause";
 import VolumeUpIcon from "@material-ui/icons/VolumeUp";
 import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 import Slider from "@material-ui/core/Slider";
-import { Avatar } from "@material-ui/core";
 import ControlsToggleButton from "./ControlsToggleButton";
 import Name from "./Name";
 import { ThemeContext } from "../../api/Theme";
 import { useDispatch, useSelector } from "react-redux";
 import { setBannerOpen, setCurrentPlaying } from "../../actions/actions";
 import Button from "@material-ui/core/Button";
+import { useMoralis } from 'react-moralis';
+import SuperfluidSDK from '@superfluid-finance/js-sdk';
+import { Web3Provider } from '@ethersproject/providers';
 
 function FooterMusicPlayer({ music }) {
-  const [{ id, name, author_name, img, musicName }, setCurrTrack] = useState(music);
+  const { user, isAuthenticated } = useMoralis();
+  const [{ id, name, author_name, img, musicName, artistAddress }, setCurrTrack] = useState(music);
   const [isRepeatClicked, setRepeatClick] = useState(false);
   const [isPrevClicked, setPrevClicked] = useState(false);
   const [isNextClicked, setNextClicked] = useState(false);
@@ -32,6 +35,41 @@ function FooterMusicPlayer({ music }) {
 
   const audioElement = useRef();
   const dispatch = useDispatch();
+  // start a payment stream aka flow
+  const sf = new SuperfluidSDK.Framework({
+      ethers: new Web3Provider(window.ethereum),
+      tokens: ['fDAI']
+    });
+
+  const testFlow = async () => {
+    // console.log(sf);
+    await sf.initialize();
+    const carol = sf.user({
+      address: user.get("ethAddress"),
+      token: sf.tokens.fDAIx.address
+    });
+  
+    await carol.flow({
+      recipient: '0xA8f3447922d786045CB582B0C825723B744a54df',
+      flowRate: "385802469135802"
+    });
+    
+    const details = await carol.details();
+    console.log(details);
+};
+
+  async function stopFlow(toAddress="0xA8f3447922d786045CB582B0C825723B744a54df") {
+    const carol = sf.user({
+      address: user.get("ethAddress"),
+      token: sf.tokens.fDAIx.address
+    });
+    
+   await carol.flow({
+        toAddress,
+        flowRate: 0
+    });
+}
+
   const { playlists } = useSelector(state => state.musicReducer);
   const useStyle = useContext(ThemeContext);
   const pointer = { cursor: "pointer", color: useStyle.theme };
@@ -67,6 +105,10 @@ function FooterMusicPlayer({ music }) {
   const handleBannerToggle = () => {
     setBannerToggle(!bannerToggle);
   };
+
+  useEffect(() => {
+   
+  }, [])
 
   useEffect(() => {
     dispatch(setBannerOpen(bannerToggle));
@@ -193,6 +235,10 @@ function FooterMusicPlayer({ music }) {
           </div>
         </div>
       </div>
+
+      <button onClick={testFlow}>Stream</button>
+      <button onClick={stopFlow}>Stop</button>
+      
       <div className="playback-widgets">
         <ControlsToggleButton
           style={pointer}

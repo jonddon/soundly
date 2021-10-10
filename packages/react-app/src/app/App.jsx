@@ -9,6 +9,7 @@ import musicDB from "../db/music";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaylist } from "../actions/actions";
 import SignUp from "../components/Pages/SignUp";
+import AddMusics from "../components/Pages/AddMusics";
 
 const App = () => {
   const { language } = useSelector(state => state.musicReducer);
@@ -34,6 +35,7 @@ const App = () => {
             <Route path="/home" component={Home} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/add-music" component={AddMusics} />
           </Switch>
         </Router>
       </div>
